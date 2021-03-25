@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask ground; // Used for collision detection
     [SerializeField] private float speed = 5f; // Used for configuring player speed
     [SerializeField] private float jumpForce = 10f; // Used for configuring player jump force
+    [SerializeField] private float hurtForce = 7f; // Used for player displacement after colliding into obstacles
     private float hDirection; // Used for getting input from player
     [SerializeField] private int numOrbs = 0; // Keeps track of orbs collected
     [SerializeField] private Text orbsText; //Displays number of orbs collected to the user
 
     // Used for determing the state of the player
-    private enum State { idle, running, jumping, falling }
+    private enum State { idle, running, jumping, falling, hurt }
     private State state = State.idle;
 
     // Start is called before the first frame update
@@ -33,8 +34,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Movement();
+        if (state != State.hurt)
+        {
+            Movement();
+        }
         AnimationState();
         anim.SetInteger("state", (int)state);
     }
@@ -96,6 +99,13 @@ public class PlayerController : MonoBehaviour
                 state = State.idle;
             }
         }
+        else if (state == State.hurt)
+        {
+            if (Mathf.Abs(rb.velocity.x) < .1f)
+            {
+                state = State.idle;
+            }
+        }
         else if (Mathf.Abs(rb.velocity.x) > 2f)
         {
             // Player is moving
@@ -110,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Detects whether player is colliding with items
+    // Detects whether player is colliding with collectable items (like orbs)
     private void OnTriggerEnter2D(Collider2D collision) 
     {
         if(collision.tag == "Collectable")
@@ -118,6 +128,30 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             numOrbs += 1;
             orbsText.text = "x " + numOrbs.ToString(); 
+        }
+    }
+
+    // Detects whether player is colliding with obstacles
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.gameObject.tag == "Obstacle")
+        {
+            // Collision with obstacle has been detected
+            state = State.hurt;
+            // Check if collision was on player's right side
+            if (other.gameObject.transform.position.x > transform.position.x)
+            {
+                // Obstacle was on player's right side
+                // Player must fall leftwards
+                rb.velocity = new Vector2(-hurtForce, rb.velocity.y);
+            }
+            else 
+            {
+                // Obstacle was on player's left side
+                // Player must fall rightwards
+                rb.velocity = new Vector2(hurtForce, rb.velocity.y);
+            }
+
         }
     }
 }
