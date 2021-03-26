@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private enum State { idle, running, jumping, falling, hurt }
     private State state = State.idle;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -208,5 +209,9 @@ public class PlayerController : MonoBehaviour
         levelComplete.Play();
     }
 
+    public int getOrbsCollected()
+    {
+        return numOrbs;
+    }
 
 }
