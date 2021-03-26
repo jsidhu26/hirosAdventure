@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
     private float hDirection; // Used for getting input from player
     [SerializeField] private int numOrbs = 0; // Keeps track of orbs collected
     [SerializeField] private Text orbsText; //Displays number of orbs collected to the user
+    [SerializeField] private AudioSource jump; // Sound played when playaer jumps
+    [SerializeField] private AudioSource hurt; // Sound played when player is hurt
+    [SerializeField] private AudioSource orbCollect; // Sound played when player collects orb
+    [SerializeField] private AudioSource levelComplete; // Sound played when player completes level
 
     // Used for determing the state of the player
     private enum State { idle, running, jumping, falling, hurt }
@@ -74,6 +78,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             // Set state to jumping
             state = State.jumping;
+            // Play jump noise
+            Jump();
         }
     }
 
@@ -84,10 +90,10 @@ public class PlayerController : MonoBehaviour
         {
             // Player is jumping
 
-            // If player's vertical velocity is less than .1f
+            // If player's vertical velocity is less than .1f, then they are on their way down from jump
             if (rb.velocity.y < .1f)
             {
-                // Player is on their way down from jump
+                // Player state is falling
                 state = State.falling;
             }
         }
@@ -101,6 +107,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (state == State.hurt)
         {
+            // Player is hurt
             if (Mathf.Abs(rb.velocity.x) < .1f)
             {
                 state = State.idle;
@@ -123,11 +130,17 @@ public class PlayerController : MonoBehaviour
     // Detects whether player is colliding with collectable items (like orbs)
     private void OnTriggerEnter2D(Collider2D collision) 
     {
+        // If the item is a collectable
         if(collision.tag == "Collectable")
         {
+            // Destroy the item upon contact
             Destroy(collision.gameObject);
+            // Increment the number of orbs collected
             numOrbs += 1;
+            // Display updated orbs collected
             orbsText.text = "x " + numOrbs.ToString(); 
+            // Play orb collection sound
+            OrbCollect();
         }
     }
 
@@ -137,7 +150,20 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Obstacle")
         {
             // Collision with obstacle has been detected
-            state = State.hurt;
+            state = State.hurt; // Player is hurt
+            if (numOrbs > 0)
+            {
+                numOrbs -= 1; // Player loses a collected orb
+                orbsText.text = "x " + numOrbs.ToString(); // Display updated orbs collected
+
+            }
+            else
+            {
+                // Player already has 0 orbs
+                numOrbs = 0;
+                orbsText.text = "x " + numOrbs.ToString(); // Display updated orbs collected
+            }
+
             // Check if collision was on player's right side
             if (other.gameObject.transform.position.x > transform.position.x)
             {
@@ -152,6 +178,35 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(hurtForce, rb.velocity.y);
             }
 
+            // Play hurt noise
+            Hurt();
+
         }
     }
+
+    // Method for triggering jump noise
+    private void Jump()
+    {
+        jump.Play();
+    }
+
+    // Method for triggering hurt noise
+    private void Hurt()
+    {
+        hurt.Play();
+    }
+
+    // Method for triggering orb collection noise
+    private void OrbCollect()
+    {
+        orbCollect.Play();
+    }
+
+    // Method for triggering level completion noise
+    private void LevelComplete()
+    {
+        levelComplete.Play();
+    }
+
+
 }
