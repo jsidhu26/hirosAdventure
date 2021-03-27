@@ -119,12 +119,14 @@ public class PlayerController : MonoBehaviour
 
     public void Resume()
     {
+        Time.timeScale = 1;
         pauseMenuUI.SetActive(false);
         isPaused = false;
     }
 
     public void Pause()
     {
+        Time.timeScale = 0;
         pauseMenuUI.SetActive(true);
         isPaused = true;
     }
