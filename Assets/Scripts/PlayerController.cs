@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource orbCollect; // Sound played when player collects orb
     [SerializeField] private AudioSource levelComplete; // Sound played when player completes level
 
+    // For keeping track of whether game is paused or not
+    public static bool isPaused = false;
+    public GameObject pauseMenuUI;
+
     // Used for determing the state of the player
     private enum State { idle, running, jumping, falling, hurt }
     private State state = State.idle;
@@ -82,6 +86,31 @@ public class PlayerController : MonoBehaviour
             // Play jump noise
             Jump();
         }
+
+        // If the player hits the 'pause' key and the player is touching the ground
+        if (CrossPlatformInputManager.GetButtonDown("Pause"))
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        isPaused = false;
+    }
+
+    public void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        isPaused = true;
     }
 
     // Switches the animation of the player based on the state
