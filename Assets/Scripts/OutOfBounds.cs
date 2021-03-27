@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class OutOfBounds : MonoBehaviour
 {
+    [SerializeField] Transform spawnPoint;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameObject player = GameObject.FindWithTag("Player");
+            player.SendMessage("Hurt");
+            player.SendMessage("resetOrbsCollected");
+            collision.gameObject.transform.position = spawnPoint.position;
         }
     }
 

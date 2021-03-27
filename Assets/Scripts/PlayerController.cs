@@ -260,6 +260,15 @@ public class PlayerController : MonoBehaviour
         return numOrbs;
     }
 
+    // Method for setting number of orbs collected
+    public void resetOrbsCollected()
+    {
+        // Reset numOrbs to 0
+        numOrbs = 0;
+        // Display updated orbs collected
+        orbsText.text = "x " + numOrbs.ToString(); 
+    }
+
     // Method for stopping timer
     public void flagCollected()
     {
