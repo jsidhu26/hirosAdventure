@@ -10,7 +10,7 @@ public class DisplayResults : MonoBehaviour
     private int orbsCollected;
     
     [SerializeField] private Text timeText; // Displays time taken to the user
-    private string timeTaken;
+    private string timeTaken;   // Stores time from PlayerPrefs API
 
     // Start is called before the first frame update
     void Start()

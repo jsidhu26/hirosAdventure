@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Method for triggering level completion noise
-    private void LevelComplete()
+    public void LevelComplete()
     {
         levelComplete.Play();
     }
@@ -264,7 +264,6 @@ public class PlayerController : MonoBehaviour
     public void flagCollected()
     {
         isComplete = true;
-        LevelComplete();
     }
 
     // Method for getting time
