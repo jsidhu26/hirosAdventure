@@ -8,17 +8,22 @@ public class DisplayResults : MonoBehaviour
 {
     [SerializeField] private Text orbsText; //Displays number of orbs collected to the user
     private int orbsCollected;
+    
+    [SerializeField] private Text timeText; // Displays time taken to the user
+    private string timeTaken;
 
     // Start is called before the first frame update
     void Start()
     {
         // Use PlayerPrefs API to get the number of orbs collected from the previous scene
         orbsCollected = PlayerPrefs.GetInt("orbsCollected");
+        timeTaken = PlayerPrefs.GetString("timeTaken");
     }
 
     // Update is called once per frame
     void Update()
     {
         orbsText.text = "x " + orbsCollected.ToString();
+        timeText.text = "Time Taken: " + timeTaken;
     }
 }

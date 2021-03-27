@@ -26,7 +26,13 @@ public class SceneChange : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            // Inform player that level is completed (for timing)
+            GameObject.Find("Player").SendMessage("flagCollected");
+            // Remember number of orbs collected
             PlayerPrefs.SetInt("orbsCollected", pc.getOrbsCollected());
+            // Remember time taken
+            PlayerPrefs.SetString("timeTaken", pc.getTimeTaken());
+            // Load next scene
             SceneManager.LoadScene(sceneName);
         }
     }

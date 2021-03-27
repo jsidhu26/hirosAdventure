@@ -26,6 +26,12 @@ public class PlayerController : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
 
+    // Timer variables
+    private float startTime;
+    private bool isComplete = false;
+    [SerializeField] private Text timeTaken; // Displays time taken in seconds
+
+
     // Used for determing the state of the player
     private enum State { idle, running, jumping, falling, hurt }
     private State state = State.idle;
@@ -38,11 +44,21 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
         orbsText.text = "x 0"; 
+        timeTaken.text = "00:00 s";
+        isComplete = false;
+        startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isComplete)
+        {
+            float t = Time.time - startTime;
+            string minutes = ((int) t / 60).ToString();
+            string seconds = (t % 60).ToString("f2");
+            timeTaken.text = minutes + ":" + seconds;
+        }
         if (state != State.hurt)
         {
             Movement();
@@ -238,9 +254,23 @@ public class PlayerController : MonoBehaviour
         levelComplete.Play();
     }
 
+    // Method for getting number of orbs collected
     public int getOrbsCollected()
     {
         return numOrbs;
+    }
+
+    // Method for stopping timer
+    public void flagCollected()
+    {
+        isComplete = true;
+        LevelComplete();
+    }
+
+    // Method for getting time
+    public string getTimeTaken()
+    {
+        return timeTaken.text;
     }
 
 }
