@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        // If the player hits the 'pause' key and the player is touching the ground
+        // If the player hits the 'pause' key
         if (CrossPlatformInputManager.GetButtonDown("Pause"))
         {
             if (isPaused)

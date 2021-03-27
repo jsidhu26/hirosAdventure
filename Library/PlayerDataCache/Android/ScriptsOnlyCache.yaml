@@ -125,6 +125,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 49680}
     - Class: 114
       Script: {instanceID: 52500}
+    - Class: 114
+      Script: {instanceID: 56634}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -277,6 +279,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 49680}
     - Class: 114
       Script: {instanceID: 52500}
+    - Class: 114
+      Script: {instanceID: 56634}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -944,7 +948,7 @@ ScriptsOnlyBuild:
     className: CameraController
   - hash:
       serializedVersion: 2
-      Hash: efe7e73921d0d6e5c811143e7f749c65
+      Hash: aa45fa759c79a29fcf1f6d09d3314dc1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
