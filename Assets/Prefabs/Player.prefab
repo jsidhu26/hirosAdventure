@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5350307414594320789}
   - component: {fileID: 5350307414594320790}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -555,11 +555,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 5
-  jumpForce: 16
-  hurtForce: 5
+  jumpForce: 25
+  hurtForce: 7
   numOrbs: 0
   orbsText: {fileID: 0}
   jump: {fileID: 5350307414594320786}
   hurt: {fileID: 5350307414594320787}
   orbCollect: {fileID: 5350307414594320789}
   levelComplete: {fileID: 5350307414594320788}
+  pauseMenuUI: {fileID: 0}
