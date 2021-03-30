@@ -6,6 +6,8 @@ using UnityEngine.UI;
 // This script is used for displaying the results to the user
 public class DisplayResults : MonoBehaviour
 {
+    [SerializeField] private Text title;
+    [SerializeField] private Text message;
     [SerializeField] private Text orbsText; //Displays number of orbs collected to the user
     private int orbsCollected;
     
@@ -18,6 +20,12 @@ public class DisplayResults : MonoBehaviour
         // Use PlayerPrefs API to get the number of orbs collected from the previous scene
         orbsCollected = PlayerPrefs.GetInt("orbsCollected");
         timeTaken = PlayerPrefs.GetString("timeTaken");
+
+        if (orbsCollected <=7)
+        {
+            title.text = "LEVEL FAILED";
+            message.text = "Not enough orbs were collected.";
+        }
     }
 
     // Update is called once per frame
