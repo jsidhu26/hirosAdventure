@@ -1,0 +1,4 @@
+#Wed Mar 31 18:25:35 EDT 2021
+base.0=/Users/jaideep/Desktop/Unity/Hiro's Adventure/Temp/gradleOut/launcher/build/intermediates/transforms/r8/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

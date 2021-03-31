@@ -1,0 +1,2 @@
+# Referenced at /Users/jaideep/Desktop/Unity/Hiro's Adventure/Temp/gradleOut/launcher/build/intermediates/merged_manifests/debug/AndroidManifest.xml:44
+-keep class com.unity3d.player.UnityPlayerActivity { <init>(); }
