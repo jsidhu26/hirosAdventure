@@ -10,7 +10,7 @@ public class RetryLevel : MonoBehaviour
         // Because the game is in Pause mode,
         // we must reset the timer
         GameObject player = GameObject.FindWithTag("Player");
-        player.SendMessage("Resume");
+        //player.SendMessage("Resume");
 
         // Reload the level
         Application.LoadLevel(level);
