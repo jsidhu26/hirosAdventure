@@ -119,16 +119,16 @@ public class PlayerController : MonoBehaviour
 
     public void Resume()
     {
+        isPaused = false;
         Time.timeScale = 1;
         pauseMenuUI.SetActive(false);
-        isPaused = false;
     }
 
     public void Pause()
     {
+        isPaused = true;
         Time.timeScale = 0;
         pauseMenuUI.SetActive(true);
-        isPaused = true;
     }
 
     // Switches the animation of the player based on the state
